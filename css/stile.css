@@ -1,0 +1,214 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+.header {
+    display: inline-block;
+    line-height: 39px;
+    margin: 50px 0 0 50px;
+    width: 450px;
+    height: 40px;
+    background: #ddd;
+}
+.list {
+    margin: 0;
+    padding: 0;
+}
+.lab {
+    list-style-type: none;
+    position: relative;
+    padding: 12px;
+    background: #eee;
+    font-size: 18px;
+    transform: rotateX(-90deg);
+    transition: 0.5s, 1s opacity;
+    opacity: 0;
+}
+.lab.show {
+    transform: none;
+    opacity: 1;
+}
+.list li:hover {
+    background: #ddd;
+    box-shadow: 0 2px 5px 0 #cfcfcf;
+}
+.list li:hover .pop .fa-chevron-right {
+    opacity: 1;
+}
+.list li:active {
+    background: #ffffff;
+}
+.list li:active .fa-chevron-right {
+    color: black;
+}
+.home {
+    width: 100%;
+}
+.list {
+    width: 350px;
+    padding: 0 0 450px 50px;
+}
+.fa-chevron-right {
+    cursor: default;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 16px 12px;
+    transition: 0.5s, 0.3s opacity;
+    opacity: 0;
+}
+.popUp.hi {
+    opacity: 1;
+    transform: none;
+}
+.pop:hover .fa-chevron-right {
+    color: white;
+}
+.popUp {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: #ddd;
+    left: 100%;
+    top: 0;
+    padding: 0 8px 8px 8px;
+    width: 450px;
+    height: auto;
+    min-height: 450px;
+    transition: 0.3s;
+    opacity: 0;
+}
+.popUp img {
+    height: 200px;
+    max-width: 350px;
+    width: auto;
+}
+.brand {
+    align-self: stretch;
+    margin: 0;
+    padding: 12px 0 12px 3px;
+}
+.selected {
+    margin: 6px;
+    background: #ffffff;
+    opacity: 0.3;
+}
+.buffer {
+    display: inline-block;
+    width: 90%;
+    margin: 12px 0;
+}
+.buffer mark, .buffer i, .buffer s {
+    float: left;
+    padding: 0 8px;
+    margin: 0 2px;
+}
+.buffer s {
+    font-weight: 700;
+    background: red;
+}
+.buffer mark {
+    background: green;
+    color: gold;
+}
+.buffer i {
+    font-weight: 700;
+    color: red;
+    background: yellow;
+}
+.buffer span, .buffer sup {
+    float: right;
+    padding: 0 2px;
+}
+.description {
+    font-size: 15px;
+    background: #eee;
+    padding: 5px 12px;
+    margin: 0;
+    width: 90%;
+    min-height: 100px;
+}
+.stock {
+    align-self: flex-end;
+    margin: 0;
+    padding: 0 2px;
+}
+.dedicated {
+    color: orange;
+}
+.demo {
+    float: left;
+}
+.select {
+    margin: 0;
+    float: right;
+}
+#select {
+    cursor: pointer;
+    margin: 0 8px;
+    width: 110px;
+    height: 25px;
+    font-size: 12px;
+    border: none;
+    color: black;
+    background-color: #eee;
+    transition: 0.3s;
+}
+#select:hover {
+    box-shadow: 0 2px 5px 0 #cfcfcf;
+    background-color: white;
+}
+.button {
+    cursor: pointer;
+    margin: 7px;
+    float: right;
+    padding: 0 10px;
+    border: none;
+    height: 25px;
+    font-size: 12px;
+    color: black;
+    background-color: #eee;
+    transition: 0.3s;
+}
+.button:hover {
+    box-shadow: 0 2px 5px 0 #cfcfcf;
+    background-color: white;
+}
+.button:active {
+    background-color: #ddd;
+}
+.button:disabled {
+    background-color: #ddd;
+    color: white;
+    pointer-events: none;
+}
+.slider {
+    cursor: pointer;
+    appearance: none;
+    float: left;
+    width: 200px;
+    height: 25px;
+    margin: 8px;
+    background: #eee;
+    outline: none;
+    opacity: 0.4;
+    transition: opacity 0.5s;
+}
+.slider:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+.slider:hover {
+    box-shadow: 0 2px 5px 0 #cfcfcf;
+    opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #000000;
+}
