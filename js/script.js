@@ -101,14 +101,14 @@ function addingElement(product) { //функция добавления элем
         popUp.style.display = 'flex'; //для анимации высплывающего окна
         setTimeout(function() {
             popUp.className = 'popUp hi';
-        }, 400);
+        }, 300);
     }
     pop.onmouseleave = function() { //при выходе
         li.draggable = true;
         popUp.className = 'popUp';
         setTimeout(function() {
             popUp.style.display = 'none';
-        }, 400);
+        }, 10);
     }
 }
 
