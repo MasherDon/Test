@@ -33,7 +33,7 @@ function addingElement(product) { //функция добавления элем
     li.appendChild(document.createTextNode(product['title']))
     setTimeout(function() { //задежка для анимации
         li.className = 'lab show';
-    }, 1000);
+    }, 600);
 
     const pop = document.createElement('div'); //раздел
     pop.className = 'pop';
@@ -101,14 +101,14 @@ function addingElement(product) { //функция добавления элем
         popUp.style.display = 'flex'; //для анимации высплывающего окна
         setTimeout(function() {
             popUp.className = 'popUp hi';
-        }, 10);
+        }, 400);
     }
     pop.onmouseleave = function() { //при выходе
         li.draggable = true;
         popUp.className = 'popUp';
         setTimeout(function() {
             popUp.style.display = 'none';
-        }, 10);
+        }, 400);
     }
 }
 
@@ -161,7 +161,7 @@ async function sortingAddingElement() { //добавить элементы
         ollLi[li].className = 'lab';
         setTimeout(function() { //задржка для анимации
             ollLi[li].remove(); //удаление
-        }, 1000);
+        }, 600);
     }
     if (products !== undefined) {
         if (valueSelect !== 'none') {
