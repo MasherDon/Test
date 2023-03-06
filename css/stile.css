@@ -5,8 +5,8 @@ body {
 }
 .header {
     display: inline-block;
-    line-height: 39px;
-    margin: 50px 0 0 50px;
+    line-height: 38px;
+    margin: 0 0 0 18%;
     width: 450px;
     height: 40px;
     background: #ddd;
@@ -47,7 +47,7 @@ body {
 }
 .list {
     width: 350px;
-    padding: 0 0 450px 50px;
+    padding: 0 0 5% 23.5%;
 }
 .fa-chevron-right {
     cursor: default;
@@ -76,7 +76,7 @@ body {
     left: 100%;
     top: 0;
     padding: 0 8px 8px 8px;
-    width: 450px;
+    width: 550px;
     height: auto;
     min-height: 450px;
     transition: 0.3s;
@@ -149,7 +149,7 @@ body {
 }
 #select {
     cursor: pointer;
-    margin: 0 8px;
+    margin: 0 7px;
     width: 110px;
     height: 25px;
     font-size: 12px;

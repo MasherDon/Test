@@ -1,15 +1,16 @@
-const list = document.querySelector('ul'); //найти список
-let numberElement = 10; //стартовое количество элементов
+const list = document.querySelector('ul');
+let numberElement = 10;
 
-const slider = document.querySelector(".slider"); //полузнок
-const output = document.querySelector(".demo"); //вывод
+const slider = document.querySelector(".slider");
+const output = document.querySelector(".demo");
+output.innerHTML = numberElement;
 
-slider.oninput = function() { //изсенение ползунка
+slider.oninput = function() {
     numberElement = this.value;
     output.innerHTML = this.value;
 }
 
-async function response(numberElement) { //функция запроса
+async function responseApi(numberElement) {
     try {
         const productsList = await fetch(`https://dummyjson.com/products?limit=${numberElement}`,{
             method: 'GET',
@@ -25,69 +26,69 @@ async function response(numberElement) { //функция запроса
     }
 }
 
-function addingElement(product) { //функция добавления элемента списка
-    const li = document.createElement('li'); //сохадние элемента
-    li.draggable = true; //перетасивание
+function addingElement(product) {
+    const li = document.createElement('li');
+    li.draggable = true;
     li.className = 'lab';
-    document.querySelector('ul').appendChild(li); //добавление элемента
+    document.querySelector('ul').appendChild(li);
     li.appendChild(document.createTextNode(product['title']))
-    setTimeout(function() { //задежка для анимации
+    setTimeout(function() {
         li.className = 'lab show';
-    }, 600);
+    }, 500);
 
-    const pop = document.createElement('div'); //раздел
+    const pop = document.createElement('div');
     pop.className = 'pop';
-    const pointer = document.createElement('span'); //стрлека пеехода
+    const pointer = document.createElement('span');
     pointer.className = 'fa fa-chevron-right';
-    const popUp = document.createElement('div'); //всплывающее окно
+    const popUp = document.createElement('div');
     popUp.className = 'popUp';
 
-    const categoryBrand = document.createElement('p'); //категория и бренд
+    const categoryBrand = document.createElement('p');
     categoryBrand.className = 'brand';
     categoryBrand.innerHTML = `${product['category']} / ${product['brand']}`;
 
-    const thumbnail = document.createElement('img'); //главное изображение
+    const thumbnail = document.createElement('img');
     thumbnail.alt = product['title'];
     thumbnail.src = product['thumbnail'];
-    thumbnail.draggable = false; //чтоб не двигали
+    thumbnail.draggable = false;
 
-    const priceDiscountPercentage = document.createElement('p'); //зона информации
+    const priceDiscountPercentage = document.createElement('p');
     priceDiscountPercentage.className = 'buffer'
-    const price = document.createElement('mark'); //стоимость
+    const price = document.createElement('mark');
     price.innerHTML = `${product['price']} $`;
-    const discountPercentage = document.createElement('i'); //округленная скидка
+    const discountPercentage = document.createElement('i');
     discountPercentage.innerHTML = ` - ${Math.round(product['discountPercentage'])} % `;
-    const startingPrice = document.createElement('s'); //округленная цена без скидки
+    const startingPrice = document.createElement('s');
     startingPrice.innerHTML = `${Math.trunc(product['price']+(product['price']*(product['discountPercentage'])/100))} $`;
 
-    priceDiscountPercentage.appendChild(price); //добавленеи параметов выше
+    priceDiscountPercentage.appendChild(price);
     priceDiscountPercentage.appendChild(discountPercentage);
     priceDiscountPercentage.appendChild(startingPrice);
 
-    const rating = document.createElement('sup'); //рейтинг
+    const rating = document.createElement('sup');
     rating.innerHTML = product['rating'];
     priceDiscountPercentage.appendChild(rating);
 
-    for (let x = Math.round(product['rating']); x < 5; x++) { //добавляем незакрышенные звезды
+    for (let x = Math.round(product['rating']); x < 5; x++) {
         const ratingBleak = document.createElement('span');
         ratingBleak.className = 'fa fa-star';
         priceDiscountPercentage.appendChild(ratingBleak);
     }
-    for (let x = 0; x < Math.round(product['rating']); x++) { //звезды
+    for (let x = 0; x < Math.round(product['rating']); x++) {
         const ratingStar = document.createElement('span');
         ratingStar.className = 'fa fa-star dedicated';
         priceDiscountPercentage.appendChild(ratingStar);
     }
 
-    const description = document.createElement('p'); //описание
+    const description = document.createElement('p');
     description.className = 'description';
     description.innerHTML = product['description'];
 
-    const stock = document.createElement('p'); //в наличии
+    const stock = document.createElement('p');
     stock.className = 'stock';
     stock.innerHTML = `in stock: ${product['stock']}`;
 
-    popUp.appendChild(categoryBrand); //добваление всего остального
+    popUp.appendChild(categoryBrand);
     popUp.appendChild(thumbnail);
     popUp.appendChild(priceDiscountPercentage);
     popUp.appendChild(description);
@@ -96,14 +97,14 @@ function addingElement(product) { //функция добавления элем
     pop.appendChild(popUp);
     li.appendChild(pop);
 
-    pop.onmouseenter = function() { //событие при наведении
-        li.draggable = false; //блокирование перетаскивания при всплывающем окне
-        popUp.style.display = 'flex'; //для анимации высплывающего окна
+    pop.onmouseenter = function() {
+        li.draggable = false;
+        popUp.style.display = 'flex';
         setTimeout(function() {
             popUp.className = 'popUp hi';
-        }, 300);
+        }, 10);
     }
-    pop.onmouseleave = function() { //при выходе
+    pop.onmouseleave = function() {
         li.draggable = true;
         popUp.className = 'popUp';
         setTimeout(function() {
@@ -112,78 +113,82 @@ function addingElement(product) { //функция добавления элем
     }
 }
 
-list.addEventListener('dragstart',(evt) => { //событие начало
-    evt.target.classList.add('selected');
-});
-list.addEventListener('dragend',(evt) => { //после
-    evt.target.classList.remove('selected');
-});
-
-list.addEventListener('dragover',(evt) => { //перетаскиваем
-    evt.preventDefault(); //элемент для сброса
-    const active = list.querySelector('.lab.show.selected'); //активный элемент
-    const current = evt.target; //куда
-    if (active === current || current.classList.value !== 'lab show') {
-        return;
-    } //исключение повтор
-    const currentCenter = current.getBoundingClientRect().y + current.getBoundingClientRect().height / 2;
-    const next = (evt.clientY < currentCenter) ? current : current.nextElementSibling; //нахождение следующего элемента если дальше
-    if (next && active === next.previousElementSibling || active === next) {
-        return;
-    } //исключение
-    list.insertBefore(active, next); //замена
-});
-
-async function startAddingElement() { //начально добваление
-    const products = await response(10); //запрос на 10 элементов
-    if (products !== undefined) {
+async function startAddingElement() {
+    const productsList = await responseApi(10);
+    if (!!productsList) {
         for (let i = 0; i < 10; i++) {
-            await new Promise(r => setTimeout(r, 50)); //задежка мужду
-            addingElement(products['products'][i]);
+            await new Promise(r => setTimeout(r, 50));
+            addingElement(productsList['products'][i]);
         }
     }
 }
 
 startAddingElement().then(r => r);
 
-async function sortingAddingElement() { //добавить элементы
-    const button = document.querySelector(".button"); //кнопка
-    button.disabled = true; //блокировка от дурака
-    const select = document.querySelector('#select'); //список
-    select.disabled = true;
-    const slider = document.querySelector('.slider'); //ползунок
-    slider.disabled = true;
-    const valueSelect = document.querySelector('#select').value; //сортировка
-    const products = await response(numberElement); //запрос
-    const ollLi = document.querySelectorAll('li'); //найти все элементы
-    for (let li = ollLi.length - 1; li > - 1; li--) {
-        await new Promise(r => setTimeout(r, 50)); //задержака между
-        ollLi[li].className = 'lab';
-        setTimeout(function() { //задржка для анимации
-            ollLi[li].remove(); //удаление
-        }, 600);
+async function sortingAddingElement(numberElement) {
+    const button = document.querySelector(".button");
+    button.disabled = true;
+
+    const valueSelect = document.querySelector('#select').value;
+    const productsList = await responseApi(numberElement);
+    const ollLi = document.querySelectorAll('li');
+
+    for (let j = ollLi.length - 1; j > - 1; j--) {
+        await new Promise(r => setTimeout(r, 50));
+        ollLi[j].className = 'lab';
+        setTimeout(function() {
+            ollLi[j].remove();
+        }, 500);
     }
-    if (products !== undefined) {
+
+    if (!!productsList) {
         if (valueSelect !== 'none') {
-            for (let i = 0; i < numberElement; i++) { //сортировка
+            for (let i = 0; i < numberElement; i++) {
                 let ind = 1;
-                for (let x = 0; x < numberElement; x++) {
-                    if (products['products'][x][valueSelect] > products['products'][ind][valueSelect]) {
-                        ind = x;
+                for (let k = 0; k < numberElement; k++) {
+                    if (productsList['products'][k][valueSelect] > productsList['products'][ind][valueSelect]) {
+                        ind = k;
                     }
                 }
-                await new Promise(r => setTimeout(r, 50)); //задржка между
-                addingElement(products['products'][ind]); //добавляем элемент
-                products['products'][ind][valueSelect] = 0;
-            }
-        } else { //в случае отсутствия сортировки
-            for (let i = 0; i < numberElement; i++) {
                 await new Promise(r => setTimeout(r, 50));
-                addingElement(products['products'][i]);
+                addingElement(productsList['products'][ind]);
+                productsList['products'][ind][valueSelect] = 0;
+            }
+        } else {
+            for (let j = 0; j < numberElement; j++) {
+                await new Promise(r => setTimeout(r, 50));
+                addingElement(productsList['products'][j]);
             }
         }
     }
-    button.disabled = false; //разблокирование элементов управления
-    select.disabled = false;
-    slider.disabled = false;
+
+    button.disabled = false;
 }
+
+list.addEventListener('dragstart',(evt) => {
+    evt.target.classList.add('selected');
+});
+
+list.addEventListener('dragend',(evt) => {
+    evt.target.classList.remove('selected');
+});
+
+const getNextElement = (cursorPosition, currentElement) => {
+    const currentElementCord = currentElement.getBoundingClientRect();
+    const currentElementCenter = currentElementCord.y + currentElementCord.height / 2;
+    return (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
+};
+
+list.addEventListener('dragover',(evt) => {
+    evt.preventDefault();
+    const activeElement = list.querySelector('.selected');
+    const currentElement = evt.target;
+    if (activeElement === currentElement) {
+        return;
+    }
+    const nextElement = getNextElement(evt.clientY, currentElement);
+    if (nextElement && activeElement === nextElement.previousElementSibling || activeElement === nextElement) {
+        return;
+    }
+    list.insertBefore(activeElement, nextElement);
+});
