@@ -102,14 +102,14 @@ function addingElement(product) {
         popUp.style.display = 'flex';
         setTimeout(function() {
             popUp.className = 'popUp hi';
-        }, 10);
+        });
     }
     pop.onmouseleave = function() {
         li.draggable = true;
         popUp.className = 'popUp';
         setTimeout(function() {
             popUp.style.display = 'none';
-        }, 10);
+        });
     }
 }
 
