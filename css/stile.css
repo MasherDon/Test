@@ -47,7 +47,7 @@ body {
 }
 .list {
     width: 350px;
-    padding: 0 0 5% 23.5%;
+    padding: 0 0 0 23.5%;
 }
 .fa-chevron-right {
     cursor: default;
