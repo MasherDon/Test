@@ -21,8 +21,8 @@ async function responseApi(numberElement) {
         if (productsList.ok === true) {
             return await productsList.json()
         }
-    } catch (error) {
-        console.log('error');
+    } catch (err) {
+        console.log('error ' + err);
     }
 }
 
